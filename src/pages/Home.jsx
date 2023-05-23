@@ -1,24 +1,24 @@
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
-import { searchsomeresult } from '../api/tvmaze';
+import { searchforpeople, searchsomeresult } from '../api/tvmaze';
+import SearchForm from '../components/SearchForm';
+import ShowGrid from '../components/shows/ShowGrid';
+import ActorGrid from '../components/actors/ActorGrid';
 
 const Home = () => {
-  const [searchstr, setsearchstr] = useState('');
   const [apidata, setapidata] = useState(null);
-  // const [apidata, setapidata] = useState([]);
   const [dataerror, setdataerror] = useState(null);
 
-  const onsearchstrchange = ev => {
-    setsearchstr(ev.target.value);
-  };
-
-  const onsearch = async ev => {
-    ev.preventDefault();
+  const onsearch = async ({ q, searchopt }) => {
     try {
       setdataerror(null);
-      const result = await searchsomeresult(searchstr);
-      console.log(result);
-      setapidata(result);
+      if (searchopt === 'shows') {
+        const result = await searchsomeresult(q);
+        setapidata(result);
+      } else {
+        const result = await searchforpeople(q);
+        setapidata(result);
+      }
     } catch (error) {
       setdataerror(error);
     }
@@ -28,23 +28,23 @@ const Home = () => {
     if (dataerror) {
       return <div>{dataerror.message}</div>;
     }
+
+    if (apidata?.length === 0) {
+      return <div>There is no result</div>;
+    }
     if (apidata) {
-      return apidata.map(data => {
-        return <div key={data.show.id}>{data.show.name}</div>;
-      });
+      return apidata[0].show ? (
+        <ShowGrid show={apidata} />
+      ) : (
+        <ActorGrid actor={apidata} />
+      );
     }
     return null;
   };
 
   return (
     <div>
-      <form onSubmit={onsearch}>
-        <h2>Home page</h2>
-        <div>{searchstr}</div>
-        <input type="text" value={searchstr} onChange={onsearchstrchange} />
-        <button type="submit">Search</button>
-      </form>
-
+      <SearchForm onsearch={onsearch} />
       <div>{renderapidata()}</div>
     </div>
   );
