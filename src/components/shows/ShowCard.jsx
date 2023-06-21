@@ -1,7 +1,9 @@
+/* eslint-disable default-case */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/alt-text */
+import { useReducer } from 'react';
 import { Link } from 'react-router-dom';
-const ShowCard = ({ name, image, id, summary }) => {
+const ShowCard = ({ name, image, id, summary, onstaredMe }) => {
   const summaryshort = summary
     ? summary.split(' ').slice(0, 10).join(' ').replace(/<.+?>/g, ' ')
     : 'NoDiscription';
@@ -14,7 +16,10 @@ const ShowCard = ({ name, image, id, summary }) => {
       <p>{summaryshort}</p>
       <div>
         <Link to={`/show/${id}`}>ReadMore </Link>
-        <button type="button"> starred</button>
+        <button type="button" onClick={() => onstaredMe(id)}>
+          {' '}
+          starred
+        </button>
       </div>
     </div>
   );
