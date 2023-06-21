@@ -1,12 +1,14 @@
+/* eslint-disable no-undef */
 import { useState } from 'react';
+import { useSearchstr } from '../library/useSearchstr';
+
 const SearchForm = ({ onsearch }) => {
-  const [searchstr, setsearchstr] = useState('');
+  const [searchstr, setsearch] = useSearchstr();
   const [searchopt, setsearchopt] = useState('show');
 
   const onsearchstrchange = ev => {
-    setsearchstr(ev.target.value);
+    setsearch(ev.target.value);
   };
-
   const radiochange = dat => {
     setsearchopt(dat.target.value);
   };
