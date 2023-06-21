@@ -1,39 +1,9 @@
 /* eslint-disable no-use-before-define */
 import ShowCard from './ShowCard';
-import { useReducer } from 'react';
-import { useEffect } from 'react';
+import { useStaredshows } from '../../library/useStaredshows';
 
-const usePersistedReducer = (reducer, intialstate, localStoragekey) => {
-  const [state, dispatch] = useReducer(reducer, intialstate, intial => {
-    const PercistentValue = localStorage.getItem(localStoragekey);
-
-    return PercistentValue ? JSON.parse(localStoragekey) : intial;
-  });
-
-  useEffect(() => {
-    localStorage.setItem(localStoragekey, JSON.stringify(state));
-  }, [state, localStoragekey]);
-
-  return [state, dispatch];
-};
-
-const staredfn = (staredid, action) => {
-  switch (action.type) {
-    case 'star':
-      return staredid.concat(action.showid);
-    case 'unstar':
-      return staredid.filter(showid => showid !== action.showid);
-    default:
-      return staredid;
-  }
-};
 const ShowGrid = ({ show }) => {
-  const [starredshows, dispatchstarred] = usePersistedReducer(
-    staredfn,
-    [],
-    'starredshows'
-  );
-
+  const [starredshows, dispatchstarred] = useStaredshows();
   const onstaredMe = showid => {
     const isStared = starredshows.includes(showid);
 
@@ -55,6 +25,7 @@ const ShowGrid = ({ show }) => {
           }
           summary={data.show.summary}
           onstaredMe={onstaredMe}
+          isStared={starredshows.includes(data.show.id)}
         />
       ))}
     </div>

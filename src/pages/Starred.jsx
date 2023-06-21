@@ -1,5 +1,8 @@
+import { useStaredshows } from '../library/useStaredshows';
 const Starred = () => {
-  return <div>Stared pages</div>;
+  const [starredshows] = useStaredshows();
+
+  return <div>Starred page , stared {starredshows.length}</div>;
 };
 
 export default Starred;
