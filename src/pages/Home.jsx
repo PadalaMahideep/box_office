@@ -6,6 +6,7 @@ import SearchForm from '../components/SearchForm';
 import ShowGrid from '../components/shows/ShowGrid';
 import ActorGrid from '../components/actors/ActorGrid';
 import styled, { css } from 'styled-components';
+import { TextCenter } from '../components/common/TextCenter';
 
 const Button = styled.button`
   background: transparent;
@@ -57,11 +58,11 @@ const Home = () => {
 
   const renderapidata = () => {
     if (dataerror) {
-      return <div>{dataerror.message}</div>;
+      return <TextCenter>{dataerror.message}</TextCenter>;
     }
 
     if (apidata?.length === 0) {
-      return <div>There is no result</div>;
+      return <TextCenter>There is no result</TextCenter>;
     }
     if (apidata) {
       return apidata[0].show ? (
@@ -74,10 +75,10 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <TextCenter>
       <SearchForm onsearch={onsearch} />
-      <div>{renderapidata()}</div>
-    </div>
+      <TextCenter>{renderapidata()}</TextCenter>
+    </TextCenter>
   );
 };
 

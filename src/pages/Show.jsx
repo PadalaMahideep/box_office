@@ -8,6 +8,8 @@ import Details from '../components/shows/Details';
 import Seasons from '../components/shows/Seasons';
 import Cast from '../components/shows/cast';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { TextCenter } from '../components/common/TextCenter';
 // const ShowById = showId => {
 //   const [showdata, setshowdata] = useState(null);
 //   const [showError, setshowError] = useState(null);
@@ -58,8 +60,10 @@ const Show = () => {
 
   if (showdata) {
     return (
-      <div>
-        <Link to="/"> Back</Link>
+      <ShowPageWrapper>
+        <BackHomeWrapper>
+          <Link to="/"> Back</Link>
+        </BackHomeWrapper>
 
         <ShowMaindata
           image={showdata.image}
@@ -75,22 +79,54 @@ const Show = () => {
           network={showdata.network}
         />
 
-        <div>
+        <InfoBlock>
           <h2>Seasons</h2>
           <Seasons Seasons={showdata._embedded.seasons} />
-        </div>
+        </InfoBlock>
 
-        <div>
+        <InfoBlock>
           <h2>Cast</h2>
           <Cast cast={showdata._embedded.cast} />
-        </div>
-      </div>
+        </InfoBlock>
+      </ShowPageWrapper>
     );
   }
 
   if (showError) {
-    return <div>`There is error ${showError.message}`</div>;
+    return <TextCenter>`There is error ${showError.message}`</TextCenter>;
   }
-  return <div>Data is Loading please wait</div>;
+  return <TextCenter>Data is Loading please wait</TextCenter>;
 };
 export default Show;
+
+const BackHomeWrapper = styled.InfoBlock`
+  margin-bottom: 30px;
+  text-align: left;
+  a {
+    padding: 10px;
+    color: ${({ theme }) => theme.mainColors.dark};
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
+const ShowPageWrapper = styled.InfoBlock`
+  margin: auto;
+  @media only screen and (min-width: 768px) {
+    max-width: 700px;
+  }
+  @media only screen and (min-width: 992px) {
+    max-width: 900px;
+  }
+`;
+
+const InfoBlock = styled.InfoBlock`
+  margin-bottom: 40px;
+  h2 {
+    margin: 0;
+    margin-bottom: 30px;
+    font-size: 22px;
+  }
+`;

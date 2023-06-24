@@ -1,6 +1,7 @@
 /* eslint-disable no-use-before-define */
 import ShowCard from './ShowCard';
 import { useStaredshows } from '../../library/useStaredshows';
+import { FlexGrid } from '../common/FlexGrid';
 
 const ShowGrid = ({ show }) => {
   const [starredshows, dispatchstarred] = useStaredshows();
@@ -14,7 +15,7 @@ const ShowGrid = ({ show }) => {
     }
   };
   return (
-    <div>
+    <FlexGrid>
       {show.map(data => (
         <ShowCard
           key={data.show.id}
@@ -28,7 +29,7 @@ const ShowGrid = ({ show }) => {
           isStared={starredshows.includes(data.show.id)}
         />
       ))}
-    </div>
+    </FlexGrid>
   );
 };
 export default ShowGrid;
