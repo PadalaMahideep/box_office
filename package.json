@@ -1,7 +1,7 @@
 {
   "name": "box-office",
   "version": "0.1.0",
-  "homepage": "https://PadalaMahideep.github.io/Box-Office",
+  "homepage": "https://PadalaMahideep.github.io/box_office",
   "private": true,
   "dependencies": {
     "@tanstack/react-query": "^4.29.12",

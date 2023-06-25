@@ -58,7 +58,7 @@ const Home = () => {
 
   const renderapidata = () => {
     if (dataerror) {
-      return <TextCenter>{dataerror.message}</TextCenter>;
+      return <>{dataerror.message}</>;
     }
 
     if (apidata?.length === 0) {
