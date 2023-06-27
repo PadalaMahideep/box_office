@@ -22,7 +22,7 @@ const ShowGrid = ({ show }) => {
           name={data.show.name}
           id={data.show.id}
           image={
-            data.show.image.medium ? data.show.image.medium : '/NOTFOUND.png'
+            data.show.image ? data.show.image.medium : '/NOTFOUND.png'
           }
           summary={data.show.summary}
           onstaredMe={onstaredMe}
